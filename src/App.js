@@ -1,51 +1,77 @@
 import config from './config'
 import axios from "axios";
-import React, {Component} from "react";
-import { Route, Switch, withRouter } from 'react-router-dom';
+import React from "react";
+import { Route, useNavigate, Routes  } from 'react-router-dom';
 import Landing from "./components/Landing";
+import MyNav from "./components/MyNav";
+import {useState, useEffect} from 'react'
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
-class App extends Component {
+// class App extends Component {
 
-  state = {
-    movies: []
-  }
+//   state = {
+//     movies: []
+//   }
 
-  getInitialDetails = () => {
-    axios
-      .get(`${config.API_URL}/api/main`)
-      .then((response) => {
-        this.setState({
-          movies: response.data,
-        }, (() => {
-          console.log(response.data)
-        }));
-      })
-      .catch((err) => {
-        console.log("Fetching data failed", err);
-      });
-  };
+//   getInitialDetails = () => {
+//     axios
+//       .get(`${config.API_URL}/api/main`)
+//       .then((response) => {
+//         this.setState({
+//           movies: response.data,
+//         }, (() => {
+//           console.log(response.data)
+//         }));
+//       })
+//       .catch((err) => {
+//         console.log("Fetching data failed", err);
+//       });
+//   };
 
-  componentDidMount() {
-    this.getInitialDetails();
-  }
+//   componentDidMount() {
+//     this.getInitialDetails();
+//   }
 
-  render() {
+//   render() {
 
-    return (
-      <div className="App">
-        <Switch>
-          <Route
-              exact path="/main"
-              render={(routeProps) => {
-                return <Landing movies={this.state.movies} {...routeProps} />;
-              }}
-            />
-        </Switch>
-      </div>
-    );
+//     return (
+//       <div className="App">
+//       <MyNav />
+//         <Switch>
+//           <Route
+//               exact path="/main"
+//               render={(routeProps) => {
+//                 return <Landing movies={this.state.movies} {...routeProps} />;
+//               }}
+//             />
+//         </Switch>
+//       </div>
+//     );
 
-  }
+//   }
+
+// }
+
+function App() {
+
+  const [movies, setMovies] = useState([])  
+
+  // This hook is for us to redirect users to different urls
+  const navigate = useNavigate()
+
+  return(
+    <div> 
+      <MyNav />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/Signup" element={<SignUp />} />
+      </Routes>
+
+    </div>
+  )
 
 }
 
-export default withRouter(App);
+export default App;

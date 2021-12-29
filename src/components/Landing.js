@@ -9,7 +9,7 @@ import React, { Component } from 'react'
         return (
             <div>
                 <h1>Hello world</h1>
-                {
+                {/* {
 
                     movies.map((singleMovie) => {
                         return(<div>
@@ -21,7 +21,7 @@ import React, { Component } from 'react'
                     })
 
 
-                }
+                } */}
             </div>
         )
     }
